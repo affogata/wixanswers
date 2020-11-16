@@ -37,7 +37,9 @@ WixAnswers::Enumerations::Channel.validate!(payload[:channel])
 ```
 
 #Supported Ruby Versions
+
 * \>= 2.3
+
 
 #Installation
 

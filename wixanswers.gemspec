@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Roee Sheelo']
   spec.description = 'A Ruby interface to the WixAnswers API'
   spec.email = %w[roee.sheelo@gmail.com]
-  spec.files = %w[.yardopts CHANGELOG.md LICENSE.md README.md wixanswers.gemspec] + Dir['lib/**/*.rb']
+  spec.files = %w[CHANGELOG.md LICENSE.md README.md wixanswers.gemspec] + Dir['lib/**/*.rb']
   spec.homepage = 'https://github.com/communit-team/wixanswers'
   spec.licenses = %w[MIT]
   spec.name = 'wixanswers'
