@@ -36,12 +36,12 @@ ticket = WixAnswers::Models::Ticket.from_payload(<ticket_payload>)
 WixAnswers::Enumerations::Channel.validate!(payload[:channel])
 ```
 
-#Supported Ruby Versions
+# Supported Ruby Versions
 
 * \>= 2.3
 
 
-#Installation
+# Installation
 
 ```
 gem install wixanswers
