@@ -1,5 +1,9 @@
 0.0.3
 ------
+* support email-based tickets
+
+0.0.3
+------
 * fixed wrong method name
 
 0.0.1

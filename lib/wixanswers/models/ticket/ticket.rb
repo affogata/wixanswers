@@ -103,7 +103,12 @@ module WixAnswers
           when Enumerations::Channel::BY_AGENT
             Models::ByAgent.new(payload)
           when Enumerations::Channel::EMAIL
-            Models::Reply.new(payload)
+            # support email-based tickets
+            if payload[:type].nil?
+              Models::Ticket.new(payload)
+            else
+              Models::Reply.new(payload)
+            end
           when Enumerations::Channel::PHONE_CALLBACK
             Models::PhoneCallback.new(payload)
           when Enumerations::Channel::WIDGET
