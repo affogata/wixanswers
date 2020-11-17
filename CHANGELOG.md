@@ -1,3 +1,7 @@
+0.0.2
+------
+* fixed wrong method name
+
 0.0.1
 ------
 
