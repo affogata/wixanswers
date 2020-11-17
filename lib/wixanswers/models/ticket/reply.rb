@@ -47,7 +47,7 @@ module WixAnswers
         attrs = self.attrs[:parentTicket]
         return if attrs.nil?
 
-        @_ticket = WixAnswers::Ticket.from_payload(attrs)
+        @_ticket = Ticket.from_payload(attrs)
       end
 
       def user_info
