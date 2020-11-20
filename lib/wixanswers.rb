@@ -1,6 +1,7 @@
 require 'wixanswers/rest/api'
-require 'wixanswers/rest/enumerations'
-require 'wixanswers/rest/exceptions'
+
+require 'wixanswers/enumerations'
+require 'wixanswers/exceptions'
 
 require 'wixanswers/models/base'
 
