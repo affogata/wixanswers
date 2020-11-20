@@ -131,7 +131,7 @@ module WixAnswers
       # @return [Array<WixAnswers::Models::Ticket>]
       # @param options [Hash] A customizable set of options
       def search(options = {})
-        WixAnswers::Models::Ticket.new(perform_request("/tickets/search/admin", :post, options))
+        perform_request("/tickets/search/admin", :post, options).map {|ticket| WixAnswers::Models::Ticket.new(ticket) }
       end
 
       # Get list of your tickets that match the search/filtering criteria.
@@ -143,7 +143,7 @@ module WixAnswers
       # @return [Array<WixAnswers::Models::Ticket>]
       # @param options [Hash] A customizable set of options
       def search_mine(options = {})
-        WixAnswers::Models::Ticket.new(perform_request("/tickets/my", :post, options))
+        perform_request("/tickets/my", :post, options).map {|ticket| WixAnswers::Models::Ticket.new(ticket) }
       end
 
       # Get the number of tickets matching one or more saved filters.
@@ -151,11 +151,11 @@ module WixAnswers
       # @see https://help.wixanswers.com/kb/en/article/ticket-apis#get-the-number-of-tickets-matching-one-or-more-saved-filters
       # @authorization Requires agent authorization token and permission FETCH_TICKET_VIEWS
       # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
-      # @return [Array<WixAnswers::Models::Ticket>]
+      # @return [Hash]
       # @param options [Hash] A customizable set of options
       # @option locale [String] Get the number of tickets matching one or more saved filters.
       def count(options = {})
-        WixAnswers::Models::Ticket.new(perform_request("/tickets/filtersCounts", :post, options))
+        perform_request("/tickets/filtersCounts", :post, options)
       end
     end
   end
