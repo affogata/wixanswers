@@ -8,8 +8,8 @@ module WixAnswers
       include WixAnswers::REST::API
       attr_accessor :bearer_token
 
-      def perform_request(request_method, path, options = {})
-        WixAnswers::REST::Request.new(self, request_method, path, options).perform
+      def perform_request(path, request_method=:get, options = {})
+        WixAnswers::REST::Request.new(self, path, request_method, options).perform
       end
 
       # @return [Boolean]
