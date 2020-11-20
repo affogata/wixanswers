@@ -4,6 +4,8 @@ gem 'jruby-openssl', platforms: :jruby
 gem 'rake'
 gem 'yard'
 
+gem 'httparty'
+
 group :development do
   gem 'pry'
 end
