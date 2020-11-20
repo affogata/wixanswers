@@ -1,4 +1,4 @@
-require 'twitter/rest/engagements'
+require 'wixanswers/rest/ticket'
 
 module WixAnswers
   module REST
