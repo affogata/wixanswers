@@ -4,7 +4,7 @@ require 'wixanswers/rest/request'
 
 module WixAnswers
   module REST
-    class Client < Twitter::Client
+    class Client
       include WixAnswers::REST::API
       attr_accessor :bearer_token
 
