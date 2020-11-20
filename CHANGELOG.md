@@ -4,7 +4,7 @@
 * added PhoneNumber object
 * added API and Request modules, 
 * added Client class
-* added support for ticket 'Add' 
+* added support for ticket 'Add', 'Get'
 
 0.0.3 (Stable)
 ------
