@@ -11,7 +11,7 @@ module WixAnswers
     end
 
     def patch
-      4
+      5
     end
 
     def pre

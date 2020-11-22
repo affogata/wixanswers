@@ -1,12 +1,16 @@
-0.0.4 (In Progress)
+0.0.6 (In Progress)
 ------
-* added all Enumeration objects
 * added PhoneNumber object
 * added API and Request modules, 
 * added Client class
 * added support for ticket 'Add', 'Get'
 
-0.0.3 (Stable)
+0.0.5 (Stable)
+------
+* added all Enumeration objects
+* added Enumeration#title method
+
+0.0.3
 ------
 * support email-based tickets
 
