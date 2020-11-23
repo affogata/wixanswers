@@ -28,7 +28,8 @@ module WixAnswers
     end
 
     class WebhookType < Enumeration
-      TICKET_CREATED ||= 2
+      TICKET_CREATED ||= 1
+      REPLY_CREATED ||= 2
       TICKET_STATUS_CHANGED ||= 8
     end
 
