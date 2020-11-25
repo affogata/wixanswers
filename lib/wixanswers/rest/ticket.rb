@@ -157,6 +157,185 @@ module WixAnswers
       def count(options = {})
         perform_request("/tickets/filtersCounts", :post, options)
       end
+
+      # Assign a ticket to an agent or an agent group.
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#assign-a-ticket
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      def assign(ticket_id)
+        WixAnswers::Models::Ticket.new(perform_request("/tickets/#{ticket_id}/assign", :post))
+      end
+
+      # Assign one or more tickets to an agent or an agent group.
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#assign-one-or-more-tickets
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <Array[WixAnswers::Models::Ticket]>
+      # @param options [Hash] A customizable set of options
+      # @option ids [String] List of tickets to assign.
+      # @option assignedGroupId [String] The agent group to which to assign the ticket.
+      #                                  This parameter or assignedUserId is required (but not both.
+      # @option assignedUserId [String] The agent to whom to assign the ticket.
+      #                                 This parameter or assignedGroupId is required (but not both).
+      def assign_many(options={})
+        perform_request("/tickets/assign", :post, options).map {|ticket| WixAnswers::Models::Ticket.new(ticket)}
+      end
+
+      # Remove the agent or group assignment from a ticket.
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#unassign-a-ticket
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      def unassign(ticket_id)
+        WixAnswers::Models::Ticket.new(perform_request("/tickets/#{ticket_id}/unassign", :post))
+      end
+
+      # Remove the agent or group assignment from one or more tickets.
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#unassign-one-or-more-tickets
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <Array[WixAnswers::Models::Ticket]>
+      # @param options [Hash] A customizable set of options
+      # @option ids [String] List of tickets to unassign.
+      # @option assignedGroupId [String] The agent group to which to unassign the ticket.
+      #                                  This parameter or assignedUserId is required (but not both.
+      # @option assignedUserId [String] The agent to whom to unassign the ticket.
+      #                                 This parameter or assignedGroupId is required (but not both).
+      def unassign_many(options={})
+        perform_request("/tickets/unassign", :post, options).map {|ticket| WixAnswers::Models::Ticket.new(ticket)}
+      end
+
+      # Mark a ticket as spam
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#mark-a-ticket-as-spam
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      def mark_spam(ticket_id)
+        perform_request("/tickets/#{ticket_id}/markSpam", :post)
+      end
+
+      # Mark a ticket as not spam
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#mark-a-ticket-as-not-spam
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      def mark_not_spam(ticket_id)
+        perform_request("/tickets/#{ticket_id}/markHam", :post)
+      end
+
+      # Mark one or more tickets as spam
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#mark-one-or-more-tickets-as-spam
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <Array[WixAnswers::Models::Ticket]>
+      # @param options [Hash] A customizable set of options
+      # @option ids [String] List of tickets to mark as spam.
+      def mark_spam_many(options={})
+        perform_request("/tickets/markSpam", :post, options)
+      end
+
+      # Mark one or more tickets as not spam
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#mark-one-or-more-tickets-as-not-spam
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <Array[WixAnswers::Models::Ticket]>
+      # @param options [Hash] A customizable set of options
+      # @option ids [String] List of tickets to mark as spam.
+      def mark_not_spam_many(options={})
+        perform_request("/tickets/markHam", :post, options)
+      end
+
+      # Authenticate a ticket.
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#authenticate-a-ticket
+      # @authorization Requires agent authorization token and permission MANAGE_TICKETS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      def authenticate(ticket_id)
+        WixAnswers::Models::Ticket.new(perform_request("/tickets/#{ticket_id}/authenticate", :post))
+      end
+
+      # Transfer a ticket; this changes the user associated with a ticket. Use when an existing ticket
+      # is found to be relevant for the user, such as one opened initially for an unauthenticated user.
+      # For example, when a) an unauthenticated user is created from an email and then b) an agent moves
+      # the ticket to an existing authenticated user.
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#change-a-tickets-user-transfer-a-ticket
+      # @authorization Requires agent authorization token and permission MANAGE_TICKETS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      # @param options [Hash] A customizable set of options
+      # @option targetUserId [String] The new user
+      def transfer(ticket_id, options={})
+        WixAnswers::Models::Ticket.new(perform_request("/tickets/#{ticket_id}/transfer", :post, options))
+      end
+
+      # Update a ticket's status
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#update-a-tickets-status
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      # @param options [Hash] A customizable set of options
+      # @option status [Integer] The new Ticket Status
+      def update_status(ticket_id, options={})
+        WixAnswers::Models::Ticket.new(perform_request("/tickets/#{ticket_id}/status", :put, options))
+      end
+
+      # Update one or more tickets' statuses
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#update-status-of-one-or-more-tickets
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <Array[WixAnswers::Models::Ticket]>
+      # @param options [Hash] A customizable set of options
+      # @option ids [Array<String>] List of tickets for which to change the status
+      # @option status [Integer] The new Ticket Status
+      def update_status_many(options={})
+        perform_request("/tickets/setStatus", :post, options).map {|ticket| WixAnswers::Models::Ticket.new(ticket)}
+      end
+
+      # Update a ticket's priority
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#update-a-tickets-priority
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <WixAnswers::Models::Ticket>
+      # @param ticket_id [String] Ticket GUID
+      # @param options [Hash] A customizable set of options
+      # @option priority [Integer] New Ticket Priority
+      def update_priority(ticket_id, options={})
+        WixAnswers::Models::Ticket.new(perform_request("/tickets/#{ticket_id}/priority", :put, options))
+      end
+
+      # Update one or more tickets' priorities
+      #
+      # @see https://help.wixanswers.com/kb/en/article/ticket-apis#update-priority-of-one-or-more-tickets
+      # @authorization Requires agent authorization token and permission BASIC_TICKET_ACTIONS
+      # @raise [WixAnswers::Exceptions::Unauthorized] Error raised when supplied agent credentials are not valid.
+      # @return <Array[WixAnswers::Models::Ticket]>
+      # @param options [Hash] A customizable set of options
+      # @option ids [Array<String>] List of tickets for which to change the status
+      # @option priority [Integer] New Ticket Priority
+      def update_priority_many(options={})
+        perform_request("/tickets/setPriority", :post, options).map {|ticket| WixAnswers::Models::Ticket.new(ticket)}
+      end
     end
   end
 end
