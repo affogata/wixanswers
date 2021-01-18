@@ -99,16 +99,11 @@ module WixAnswers
 
         case payload[:channel]
           when Enumerations::Channel::WEB
-            Models::Ticket.new(payload)
+            payload[:type].nil? ? Models::Ticket.new(payload) : Models::Reply.new(payload)
           when Enumerations::Channel::BY_AGENT
             Models::ByAgent.new(payload)
           when Enumerations::Channel::EMAIL
-            # support email-based tickets
-            if payload[:type].nil?
-              Models::Ticket.new(payload)
-            else
-              Models::Reply.new(payload)
-            end
+            payload[:type].nil? ? Models::Ticket.new(payload) : Models::Reply.new(payload)
           when Enumerations::Channel::PHONE_CALLBACK
             Models::PhoneCallback.new(payload)
           when Enumerations::Channel::WIDGET

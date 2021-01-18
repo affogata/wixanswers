@@ -5,7 +5,12 @@
 * added Client class
 * added support for ticket 'Add', 'Get'
 
-0.0.5 (Stable)
+
+0.0.5.1 (Stable)
+----------------
+* added support for `AGENT_REPLY_CREATED` Webhook events 
+
+0.0.5
 ------
 * added all Enumeration objects
 * added Enumeration#title method
